@@ -18,6 +18,14 @@ const razorpayInstance = new Razorpay({
 app.post('/create-order', async (req, res) => {
   try {
     const { amount, currency = 'INR', receipt = 'order_rcptid_11' } = req.body;
+    
+    // Validate amount
+    if (!amount || typeof amount !== 'number' || amount <= 0) {
+      return res.status(400).json({
+        success: false,
+        message: 'Amount must be a positive number'
+      });
+    }
 
     const options = {
       amount: amount * 100, // Convert to smallest currency unit (paise)
