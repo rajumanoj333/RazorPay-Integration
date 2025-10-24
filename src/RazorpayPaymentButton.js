@@ -14,17 +14,24 @@ const RazorpayPaymentButton = ({
   receipt = 'order_rcptid_11'
 }) => {
   const [loading, setLoading] = useState(false);
+  const [scriptLoaded, setScriptLoaded] = useState(false);
 
   // Load Razorpay script dynamically
   useEffect(() => {
     const script = document.createElement('script');
     script.src = 'https://checkout.razorpay.com/v1/checkout.js';
     script.async = true;
+    script.onload = () => setScriptLoaded(true);
+    script.onerror = () => {
+      console.error('Failed to load Razorpay SDK');
+      setScriptLoaded(false);
+    };
     document.body.appendChild(script);
 
     return () => {
-      document.body.removeChild(script);
-    };
+      if (script.parentNode) {
+        document.body.removeChild(script);
+      }
   }, []);
 
   const createOrder = async () => {
