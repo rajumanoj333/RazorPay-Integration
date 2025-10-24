@@ -99,7 +99,7 @@ const RazorpayPaymentButton = ({
         image,
         order_id: orderId, // Use the order ID from backend
         handler: async function(response) {
-          // Verify the payment signature on the backend
+          amount: Math.round(Number(amount) * 100), // Amount is in currency subunits (paise for INR); coerces to number and rounds to nearest integer
           const isVerified = await verifyPayment(response);
           
           if (isVerified) {
