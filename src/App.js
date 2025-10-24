@@ -29,9 +29,9 @@ function App() {
           onSuccess={handlePaymentSuccess}
           onFailure={handlePaymentFailure}
           prefill={{
-            name: "John Doe",
-            email: "john.doe@example.com",
-            contact: "9999999999"
+            name: "", // Should be populated with actual user data
+            email: "", // Should be populated with actual user data
+            contact: "" // Should be populated with actual user data
           }}
           notes={{
             address: "Razorpay Corporate Office"
